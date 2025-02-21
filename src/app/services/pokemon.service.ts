@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PokemonList } from '../interfaces/pokemon';
+import { Pokemons } from '../interfaces/pokemon';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ export class PokemonService {
 
   constructor() { }
 
-  async getAllPokemons() :Promise<PokemonList[]>{
-    const data = await fetch(`${this.url}pokemon?limit=${0}&offset=${20}`)
+  async getAllPokemons() :Promise<Pokemons[]>{
+    const data = await fetch(`${this.url}pokemon?limit=${0}&offset=${20}`);
     return await data.json() ?? [];
   }
 }

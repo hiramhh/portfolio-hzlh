@@ -1,8 +1,6 @@
-export interface Pokemon {
-    name: string,
-    url: string
-}
-
-export interface PokemonList{
-    results: Pokemon
+export interface Pokemons{
+    results: [
+        name: string,
+        url: string
+    ]
 }

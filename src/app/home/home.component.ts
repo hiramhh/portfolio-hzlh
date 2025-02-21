@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { PokemonComponent } from "../pokemon/pokemon.component";
-import { Pokemon, PokemonList } from '../interfaces/pokemon';
+import { Pokemons } from '../interfaces/pokemon';
 import { PokemonService } from '../services/pokemon.service';
 
 @Component({
@@ -10,15 +10,14 @@ import { PokemonService } from '../services/pokemon.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  pokemonList: PokemonList[] = [];
+  pokemonList: Pokemons[] = [];
   pokemonService: PokemonService = inject(PokemonService);
 
   constructor(){
     this.pokemonService.getAllPokemons().then((
-      pokemonList: PokemonList[]) => {
-        this.pokemonList = pokemonList.results;
-        console.log(pokemonList);
-        
+      pokemonList: Pokemons[]) => {
+        this.pokemonList = pokemonList;
+        console.log(this.pokemonList);
       });
   }
 }
