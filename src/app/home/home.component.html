@@ -1,4 +1,5 @@
 <section>
-    <app-pokemon 
+    <app-pokemon *ngFor="let pokemon of pokemon"
+    [pokemon]="pokemon"
     ></app-pokemon>
 </section>

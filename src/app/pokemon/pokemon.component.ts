@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Pokemons } from '../interfaces/pokemon';
+import { Pokemon } from '../interfaces/pokemon';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pokemon.component.css'
 })
 export class PokemonComponent {
-  @Input() pokemon!: Pokemons;
+  @Input() pokemon!: any;
     
 
 }

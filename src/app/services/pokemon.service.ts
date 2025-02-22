@@ -10,8 +10,12 @@ export class PokemonService {
 
   constructor() { }
 
+  // Request with promises
   async getAllPokemons() :Promise<Pokemons[]>{
     const data = await fetch(`${this.url}pokemon?limit=${0}&offset=${20}`);
     return await data.json() ?? [];
   }
+
+
+
 }
