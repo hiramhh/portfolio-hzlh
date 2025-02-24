@@ -10,3 +10,10 @@
   .content {
     padding: var(--content-padding);
   }
+
+  body{
+    background-color: black;
+    color: white;
+}
+
+

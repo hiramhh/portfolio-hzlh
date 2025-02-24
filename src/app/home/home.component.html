@@ -1,5 +1,18 @@
-<section>
-    <app-pokemon *ngFor="let pokemon of pokemon"
-    [pokemon]="pokemon"
-    ></app-pokemon>
-</section>
+
+<div 
+class="scroll-container"
+(scroll)="onPokedexScroll($event)">
+    <section>
+        <button 
+        [ngClass]="'no-hidden'"
+        *ngIf="showGoUpButton"
+        (click)="scrollTop()"
+        type="button">Go up</button>
+    </section>
+    
+    <section>
+        <app-pokemon *ngFor="let pokemon of pokemon"
+        [pokemon]="pokemon"
+        ></app-pokemon>
+    </section>
+</div>
