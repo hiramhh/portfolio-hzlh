@@ -1,4 +1,4 @@
-import { Component, HostListener, inject} from '@angular/core';
+import { Component, ElementRef, inject, ViewChild} from '@angular/core';
 import { PokemonComponent } from "../pokemon/pokemon.component";
 import { Pokemon, Pokemons } from '../interfaces/pokemon';
 import { PokemonService } from '../services/pokemon.service';
@@ -22,17 +22,21 @@ export class HomeComponent {
   isLoading = false;
   pagination: number = 1;
 
-    // Terminan variables para scroll infinito
+  // Terminan variables para scroll infinito
+
+  // Empiezan varibles para el boton 
+  @ViewChild('scrollId') myDiv!: ElementRef<HTMLDivElement>;
+
+  // Terminan vartiables para el  boton
 
 
   showGoUpButton: boolean;
-  private actualPage: number;
-  showScrolHeight: number = 400;
+  scrollPosition: number = 0;
+  showScrolHeight: number = 2500;
   hideScrollHeight: number = 200;
 
 
   constructor(){
-    this.actualPage = 1;
     this.showGoUpButton =  false;
   }
 
@@ -41,7 +45,7 @@ export class HomeComponent {
       pokemonList: any) => {
         this.pokemon = pokemonList.results;
         this.pokemonInfo = pokemonList.next;
-      });  
+      });     
   }
 
   // Inicia funciones del scroll infinito
@@ -51,7 +55,13 @@ export class HomeComponent {
     const scrollHeight = event.target.scrollHeight;
     const offsetHeight = event.target.offsetHeight;
 
+
     
+    if ( scrollTop > this.showScrolHeight) {
+      this.showGoUpButton = true;
+    } else if(scrollTop < this.hideScrollHeight ){
+      this.showGoUpButton = false;
+    }
 
     if (scrollHeight - (scrollTop + offsetHeight) < 50 && !this.isLoading) {
       this.pagination++;
@@ -61,14 +71,21 @@ export class HomeComponent {
 
 
   private nextPokemons(): void{
+    console.log(this.pokemon);
+    
     this.isLoading = true;
     this.pokemonService.getNextPokemons(this.pokemonInfo).subscribe({
       next: (data) => {
+        // this.pokemon.push(data.results);
         this.pokemon = data.results;
         this.pokemonInfo = data;
       },
       error: (err) => console.error('Error fetching Pokemons', err)
     });  
+    console.log("Hola desde nextPokemons");
+
+    console.log(this.pokemon);
+
 
   }
 
@@ -77,21 +94,10 @@ export class HomeComponent {
 
   //Inicia logica para el boton de ir para arriba
 
-  @HostListener('window:scroll', [])
-    onWindowScroll(){
-      if ((window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) > this.showScrolHeight) {
-        this.showGoUpButton = true;
-      } else if(this.showGoUpButton && (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) < this.showScrolHeight ){
-        this.showGoUpButton = true;
-      }
-    }
-
-
-  scrollTop(){
-    document.body.scrollTop = 0;  // Safari
-    document.documentElement.scrollTop = 0;  // Other
+  scrollTop(): void{
+    this.myDiv.nativeElement.scrollTop = 0;    
   }
 
-    //Termina logica para el boton de ir para arriba
+  //Termina logica para el boton de ir para arriba
 
 }
