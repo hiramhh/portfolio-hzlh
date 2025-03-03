@@ -11,3 +11,28 @@
     overflow-y: auto;
     border: .1em, solid #ffde00;
 }
+
+
+.cardPokemon{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+/* For WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #051227; /* Track color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #0c145a; /* Scroll handle */
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Hover effect */
+  }

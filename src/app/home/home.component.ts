@@ -46,12 +46,13 @@ export class HomeComponent {
         console.log("Hola desde ngOnInit");
         
         this.pokemon = pokemonList.results;
-        console.log(this.pokemon);
-        
         this.pokemonInfo = pokemonList.next;
-        console.log(this.pokemonInfo);
 
-      });     
+        this.nextPokemons();
+
+      });  
+      
+      
   }
 
   // Inicia funciones del scroll infinito
