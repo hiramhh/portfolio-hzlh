@@ -43,8 +43,14 @@ export class HomeComponent {
   ngOnInit(){
     this.pokemonService.getAllPokemons().then((
       pokemonList: any) => {
+        console.log("Hola desde ngOnInit");
+        
         this.pokemon = pokemonList.results;
+        console.log(this.pokemon);
+        
         this.pokemonInfo = pokemonList.next;
+        console.log(this.pokemonInfo);
+
       });     
   }
 
@@ -54,8 +60,6 @@ export class HomeComponent {
     const scrollTop = event.target.scrollTop;
     const scrollHeight = event.target.scrollHeight;
     const offsetHeight = event.target.offsetHeight;
-
-
     
     if ( scrollTop > this.showScrolHeight) {
       this.showGoUpButton = true;
@@ -71,22 +75,18 @@ export class HomeComponent {
 
 
   private nextPokemons(): void{
-    console.log(this.pokemon);
+    console.log("Hola desde nextPokemons");
     
     this.isLoading = true;
     this.pokemonService.getNextPokemons(this.pokemonInfo).subscribe({
       next: (data) => {
         // this.pokemon.push(data.results);
-        this.pokemon = data.results;
-        this.pokemonInfo = data;
+        this.pokemon = [...this.pokemon, ...data.results];
+        this.pokemonInfo = data.next;
+        this.isLoading = false;
       },
       error: (err) => console.error('Error fetching Pokemons', err)
     });  
-    console.log("Hola desde nextPokemons");
-
-    console.log(this.pokemon);
-
-
   }
 
 

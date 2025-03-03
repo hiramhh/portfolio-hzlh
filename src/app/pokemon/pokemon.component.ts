@@ -3,7 +3,6 @@ import { Pokemon } from '../interfaces/pokemon';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PokemonService } from '../services/pokemon.service';
-import { Observable } from 'rxjs';
 
 
 
@@ -24,6 +23,8 @@ export class PokemonComponent {
   ngOnInit(): void{
     this.pokemonService.getPokemon(this.pokemon.name).subscribe({
       next: (data) => {this.pokemonPhoto = data.sprites.front_default;
+        console.log("Hola desde la peticion para las fotos");
+        
         },
       error: (err) => console.error('Error fetching Pokemons', err)
     });
