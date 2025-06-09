@@ -49,10 +49,7 @@ export class HomeComponent {
         this.pokemonInfo = pokemonList.next;
 
         this.nextPokemons();
-
-      });  
-      
-      
+      });     
   }
 
   // Inicia funciones del scroll infinito
@@ -67,7 +64,6 @@ export class HomeComponent {
     } else if(scrollTop < this.hideScrollHeight ){
       this.showGoUpButton = false;
     }
-
     if (scrollHeight - (scrollTop + offsetHeight) < 50 && !this.isLoading) {
       this.pagination++;
       this.nextPokemons();
