@@ -1,20 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { Pokemon } from '../interfaces/pokemon';
+import { PokemonService } from '../../../services/pokemon.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PokemonService } from '../services/pokemon.service';
-
-
 
 @Component({
-  selector: 'app-pokemon',
+  selector: 'app-pokemon-card',
   standalone: true,
   imports: [RouterModule,CommonModule],
-  templateUrl: './pokemon.component.html',
-  styleUrl: './pokemon.component.css'
+  templateUrl: './pokemon-card.component.html',
+  styleUrl: './pokemon-card.component.css'
 })
-export class PokemonComponent {
-  @Input() pokemon!: any;
+export class PokemonCardComponent {
+@Input() pokemon!: any;
   pokemonPhoto :any;
 
   constructor(private pokemonService: PokemonService){
@@ -29,7 +26,4 @@ export class PokemonComponent {
       error: (err) => console.error('Error fetching Pokemons', err)
     });
   }
-
 }
-
-

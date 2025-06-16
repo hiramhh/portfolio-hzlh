@@ -1,0 +1,19 @@
+
+<div 
+class="scroll-container"
+(scroll)="onPokedexScroll($event)"
+#scrollId>
+    <section>
+        <button 
+        [ngClass]="'no-hidden'"
+        *ngIf="showGoUpButton"
+        (click)="scrollTop()"
+        type="button">Go up</button>
+    </section>
+    
+    <section class="cardPokemon">
+        <app-pokemon-card class="cards" *ngFor="let pokemon of pokemon"
+        [pokemon]="pokemon"
+        ></app-pokemon-card>
+    </section>
+</div>

@@ -1,19 +1,19 @@
-
-<div 
-class="scroll-container"
-(scroll)="onPokedexScroll($event)"
-#scrollId>
-    <section>
-        <button 
-        [ngClass]="'no-hidden'"
-        *ngIf="showGoUpButton"
-        (click)="scrollTop()"
-        type="button">Go up</button>
-    </section>
-    
-    <section class="cardPokemon">
-        <app-pokemon *ngFor="let pokemon of pokemon"
-        [pokemon]="pokemon"
-        ></app-pokemon>
-    </section>
+<div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a routerLink='/pokemon'> Pokemones </a>
+        </li>
+        <li class="nav-item">
+            <a routerLink='/sales'>Point of sale</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"></a>
+        </li>
+    </ul>
 </div>
+
+
+<router-outlet></router-outlet>
