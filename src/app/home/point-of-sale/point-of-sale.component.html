@@ -52,11 +52,11 @@
 
     <!-- row 2 -->
     <div class="row mt-5">
-        <div>
-            <div>
-                <div>
+        <div class="col-md-6 product-d">
+            <div class="card">
+                <div class="card-body">
                     <h5>Productos recientes (Mensualmente)</h5>
-                    <table>
+                    <table class="table table-sm mt-4">
                         <thead>
                             <tr>
                                 <td>Imagen</td>
@@ -76,6 +76,15 @@
                             </tr>
                         </tbody>
                     </table>
+                    <!-- <pagination-controls></pagination-controls> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5> Revenue Statistics</h5>
+                    <canvas id="myChart"></canvas>
                 </div>
             </div>
         </div>
@@ -83,6 +92,44 @@
 
     <!-- row 3 -->
     <div class="row mt-5">
-        <div></div>
+        <div class="col-md-7 product-d">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Productos vencidos (Mensuales)</h5>
+                    <table class="table table-sm mt-4">
+                        <thead>
+                            <tr>
+                                <td>Id de la Orden</td>
+                                <td>Fecha</td>
+                                <td>Cantidad de productos</td>
+                                <td>Total a pagar</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <pagination-controls></pagination-controls> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Estadisticas de ventas</h5>
+                    <div class="row mt-4 mb-4 justify-content-center">
+                        <button (click)="semanal()" class="btn d-btn">Semanal</button>
+                        <button (click)="mensual()" class="btn d-btn">Mensualidad</button>
+                        <button class="btn d-btn">Anual</button>
+                    </div>
+                    <canvas id="saleChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
