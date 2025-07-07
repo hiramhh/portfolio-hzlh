@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PokemonTemplateComponent } from './home/pokemon/pokemon-template/pokemon-template.component';
 import { NgModule } from '@angular/core';
-import { PointOfSaleComponent } from './home/point-of-sale/point-of-sale.component';
+import { PointOfSaleComponent } from './home/point-of-sale/dashboard/point-of-sale.component';
 
 export const routes: Routes = [
     {

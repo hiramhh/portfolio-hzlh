@@ -1,4 +1,5 @@
 export class Product {
+    name!: string;
     category!: string;
     description!: string;
     id!: number;
@@ -7,5 +8,6 @@ export class Product {
     rating!: any;
     title!: string;
     date!: string;
-    quantity!:number;
+    quantity!: number;
+    img!: any;
 }

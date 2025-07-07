@@ -7,7 +7,7 @@
                 <div class="card-body position">
                     <div class="card-text">
                         <h4>Total de productos
-                            <br> 0
+                            <br> {{totalproduct}}
                         </h4>
                     </div>
                     <div class="icon">
@@ -23,7 +23,7 @@
                 <div class="card-body position">
                     <div class="text">
                         <h4> productos vendidos
-                            <br>0
+                            <br>{{totalSoldProducts}}
                         </h4>
                     </div>
                     <div> 
@@ -39,7 +39,7 @@
                 <div class="card-body position ">
                     <div class="text">
                         <h4> A pagar
-                            <br>$
+                            <br>$ 200
                         </h4>
                     </div>
                     <div>
@@ -67,13 +67,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="" alt=""></td>
-                                <td>Nombre</td>
-                                <td>Cantidad</td>
-                                <td>Fecha</td>
-                                <td>precio</td>
+                            <tr *ngFor="let product of ProductList | paginate:{ itemsPerPage: 3, currentPage: p}">
+                                <td><img [src]="product.img" alt="product img"></td>
+                                <td>{{product.name}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>{{product.date}}</td>
+                                <td>{{product.price}}</td>
                             </tr>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </tbody>
                     </table>
                     <!-- <pagination-controls></pagination-controls> -->
@@ -106,15 +107,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr *ngFor="let item of saleList | paginate : {itemsPerPage: 3, currentPage: q, id:'q'}">
+                                <td>#{{item.orderId}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.products}}</td>
+                                <td><b>{{item.totalPrice}}</b></td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- <pagination-controls></pagination-controls> -->
+                    <pagination-controls (pageChange)="q = $event" id="q"></pagination-controls>
                 </div>
             </div>
         </div>
