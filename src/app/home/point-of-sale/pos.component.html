@@ -1,1 +1,41 @@
-<p>pos works!</p>
+<nav *ngIf="header" class="navbar navbar-expand-lg  bg-body-tertiary " data-bs-theme="dark">
+    <!-- here´s company's name or logo -->
+    <div class="container-fluid" id="navbarColor01">
+        <a class="navbar-brand">Easy POS</a> 
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="home/product/order">Sale</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/home/product">Product Llst</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" routerLink="/home/order/order-list">Order List</a>
+                </li>
+                <li>
+                    <a class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- <ul class="float-right mr-5 logout">
+                <li>
+                    <a class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            </ul> -->
+        </div>
+        
+    </div>
+
+</nav>
+
+    <router-outlet />
