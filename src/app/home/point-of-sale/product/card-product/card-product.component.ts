@@ -12,21 +12,5 @@ import { CommonModule } from '@angular/common';
 export class CardProductComponent {
 @Input() products!: ProductResponse;
 
-// product: ProductResponse[] = [];
 
-// constructor(
-//   private productServise: ProductService 
-// ){}
-
-// ngOninit(): void{
-//   this.productServise.getAllProducts().subscribe({
-//     next: (data) => {
-//       this.product = [data]
-
-//     console.log(this.product);
-//     },
-
-//     error: (err) => console.error('Error fetching Products', err)
-//   });
-// }
 }

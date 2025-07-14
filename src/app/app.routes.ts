@@ -18,7 +18,7 @@ export const routes: Routes = [
         title: 'Pokemones'
     },
     {
-        path: 'sales',
+        path: 'point-of-sale',
         component: PosComponent,
         title: 'POS',
         children: [

@@ -27,8 +27,8 @@ export class OrderComponent implements OnInit{
 
   sale: Sale = new Sale()
   tempList: Product[] = [];
-  productList: Product[] = [];
-  product: Product[] = []
+  productList: any[] = [];  //Se tiene  que cambiar el type para que coincida con ProductResponse y manejar mejor el tipado en selectItem()
+  product: Product[] = [];
 
   subTotal: number = 0;
   totalPrice: number = 0;
@@ -55,40 +55,40 @@ export class OrderComponent implements OnInit{
   ngOnInit(){
   this.productService.getAllProducts().subscribe({
     next: (data) => {
-      console.log(data);
-      console.log(typeof(data));
-      
-      // data.forEach(element => {
-      //   this.productResponse.push(element)
-      // });
     this.productResponse = Object.values(data)
-
-    console.log(this.productResponse);
-
+    this.productList = this.productResponse;
     },
 
     error: (err) => console.error('Error fetching Products', err)
   });
   }
 
-  selectItem(i: number, key: any){
-    if (this.keyList.indexOf(key) == -1) {
-      this.selectProductList.push(this.productList[i]);
-      this.keyList.push(key);
+  selectItem(title: string, id: number){
 
-      this.getTotal(i);
-      this.setTempPrice();
-      return this.selectProductList;
+    const exist = this.selectProductList.some(item => item.id === id);
+    console.log(this.productList);
+    
+
+    if (!exist) {
+      this.selectProductList.push(this.productList.find( item => item.id === id));
+
+      // this.keyList.push(id);
+
+      this.getTotal(this.selectProductList);
+      // this.setTempPrice();
+      // return this.selectProductList;
+    console.log(this.selectProductList);
+    
     } else {
       alert("duplicate Product");
-      return 0;
-    }
+    }    
   }
 
 
-  getTotal(index: number){
+  getTotal(productList: Array<Product>): any {
     let item;
-    this.subTotal = (this.subTotal + this.productList[index].price);
+    let subTotalArray: Array<number> = productList.map(item => item.price);
+    this.subTotal = subTotalArray.reduce((accumalator, item) => accumalator + item)
   }
 
 

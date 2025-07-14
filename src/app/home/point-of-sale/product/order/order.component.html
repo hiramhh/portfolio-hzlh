@@ -44,8 +44,6 @@
                                 </select>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -54,92 +52,79 @@
 
     <div class="row">
         <div class="col-md-7">
-            <div class="row">
-                <!-- <div class="col-md-4 mmt-3 mb-3 product" *ngFor="let product of productList; let i = index"> -->
-                    <app-card-product *ngFor="let product of productResponse" [products]="product"></app-card-product>
+            <div class="row align-items-center">
+                <app-card-product 
+                class="col py-5 select-item" 
+                (click)="selectItem(product.title, product.id)" 
+                *ngFor="let product of productResponse" 
+                [products]="product"
+                ></app-card-product>
+            </div>
+        </div>
 
-                    <!-- <div class="card" (click)="selectItem(i, product.$key)" style="cursor: pointer;">
-                        <div class="card-body">
-                            <div class="product">
-                                <img [src]="product.img" class="img-fluid mb-2">
-                                <p class="text-center"><b>{{product.name}}</b></p>
-                                <div class="p-detaills pt-1">
-                                    <span>
-                                        <b>Store:</b>
-                                        <em style="color: #27ae60;">{{product.quantity}}</em>
-                                    </span>
-                                    <span>
-                                        <b>${{product.price}}</b>
-                                    </span>
+
+        <div class="col-md-5 mt-3 mb-3">
+            <div class="card item-list">
+                <h3 class="text-center">Your bucket</h3>
+                <div class="card-body">
+                    <div class="selectitem mt-2 pt-1" *ngFor="let item of selectProductList; let i=index">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img [src]="item.img">
+                            </div>
+                            <div class="col-md-5">
+                                <h5 class="title">{{item.name}}</h5>
+                                <br>
+                                <p>
+                                    <b>Price: {{item.price}}</b>  
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group qty">
+                                    <label>Quantity</label>
+                                    <input type="number" (click)="quantity($event, i)" value="1" min="1" [max]="item.quantity" class="form-control">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-5 ,t-3 mb-3">
-        <div class="card item-list">
-            <h3 class="text-center">Your bucket</h3>
-            <div class="card-body">
-                <div class="selectitem mt-2 pt-1" *ngFor="let item of selectProductList; let i=index">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img [src]="item.img">
-                        </div>
-                        <div class="col-md-5">
-                            <h5 class="title">{{item.name}}</h5>
-                            <br>
-                            <p>
-                                <b>Price: {{item.price}}</b>  
-                            </p>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group qty">
-                                <label>Quantity</label>
-                                <input type="number" (click)="quantity($event, i)" value="1" min="1" [max]="item.quantity" class="form-control">
+                            <div class="col-md-1">
+                                <button (click)="delete(i, item.$key)" class="btn mt-4 btn-danger"></button>
                             </div>
                         </div>
-                        <div class="col-md-1">
-                            <button (click)="delete(i, item.$key)" class="btn mt-4 btn-danger"></button>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="outer-div">
-            <div class="pricing">
-                <p>
-                    <b>Subtotal</b>
-                    <span class="price">${{subTotal}}</span>
-                </p>
+            <div class="outer-div">
+                <div class="pricing">
+                    <p>
+                        <b>Subtotal</b>
+                        <span class="price">${{subTotal}}</span>
+                    </p>
 
-                <p>
-                    <b>Vat(10%)</b>
-                    <span class="price">${{vat}}</span>
-                </p>
+                    <p>
+                        <b>Vat(10%)</b>
+                        <span class="price">${{vat}}</span>
+                    </p>
 
-                <p>
-                    <b>Total:</b>
-                    <span class="price">
-                        <b>${{totalPrice}}</b>
-                    </span>
-                </p>
+                    <p>
+                        <b>Total:</b>
+                        <span class="price">
+                            <b>${{totalPrice}}</b>
+                        </span>
+                    </p>
 
-                <div class="row justify-content-center">
-                    <button (click)="order()" class="save btn btn-sm pt-2 btn-primary">
-                        <i class="far fa-save mr-2">Save</i>
-                    </button>
+                    <div class="row justify-content-center">
+                        <button (click)="order()" class="save btn btn-sm pt-2 btn-primary">
+                            <i class="far fa-save mr-2">Save</i>
+                        </button>
+                    </div>
+
                 </div>
-
             </div>
         </div>
 
-
     </div>
+
+    
 
 </div>
