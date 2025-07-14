@@ -1,13 +1,15 @@
-<div class="product">
-    <img [src]="products.image" class="img-fluid mb-2">
-    <p class="text-center"><b>{{products.title}}</b></p>
-    <div class="p-detaills pt-1">
-        <span>
-            <b>Store:</b>
-            <em style="color: #27ae60;">{{products.category}}</em>
-        </span>
-        <span>
-            <b>${{products.price}}</b>
-        </span>
+<div class="card wSize">
+    <img [src]="products.image" class="card-img-top">
+    <div class="card-body">
+        <p class="card-title"><b>{{products.title}}</b></p>
+        <div class="card-text">
+            <span>
+                <b>Price: </b>
+            </span>
+            <span>
+                <b>${{products.price}}</b>
+            </span>
+        </div>
     </div>
+    
 </div>

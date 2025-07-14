@@ -55,10 +55,12 @@
     <div class="row">
         <div class="col-md-7">
             <div class="row">
-                <div class="col-md-4 mmt-3 mb-3 product" *ngFor="let product of productList; let i = index">
-                    <div class="card" (click)="selectItem(i, product.$key)" style="cursor: pointer;">
+                <!-- <div class="col-md-4 mmt-3 mb-3 product" *ngFor="let product of productList; let i = index"> -->
+                    <app-card-product *ngFor="let product of productResponse" [products]="product"></app-card-product>
+
+                    <!-- <div class="card" (click)="selectItem(i, product.$key)" style="cursor: pointer;">
                         <div class="card-body">
-                            <!-- <div class="product">
+                            <div class="product">
                                 <img [src]="product.img" class="img-fluid mb-2">
                                 <p class="text-center"><b>{{product.name}}</b></p>
                                 <div class="p-detaills pt-1">
@@ -70,11 +72,10 @@
                                         <b>${{product.price}}</b>
                                     </span>
                                 </div>
-                            </div> -->
-                            <app-card-product *ngFor="let product of productResponse" [products]="product"></app-card-product>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
