@@ -1,0 +1,144 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="filter col.md-3">
+                            <div class="form-group">
+                                <select (change)="category($event)" class="form-control form-control-sm">
+                                    <option value="mobile">Mobile</option>
+                                    <option value="tshirt">T-shirt</option>
+                                    <option value="poloshirt">Polo shirt</option>
+                                    <option value="shoe">Shoe</option>
+                                    <option value="bag">Bag</option>
+                                    <option value="cosmetics">cosmetics</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showBrands" class="col-md-3">
+                            <div class="form-group">
+                                <select (change)="brands($event)" class="form-control form-control-sm">
+                                    <option>By Brands</option>
+                                    <option [value]="brand" *ngFor="let brand of productBrands">{{brand}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showColor" class="filter col-md-3">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm">
+                                    <option>By color</option>
+                                    <option [value]="color" *ngFor="let color of colorList">{{color}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="showSize" class="filter col-md-3">
+                            <div class="form-control">
+                                <select class="form-control form-control-sm">
+                                    <option>By Size</option>
+                                    <option [value]="size" *ngFor="let size of sizeList">{{size}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-4 mmt-3 mb-3 product" *ngFor="let product of productList; let i = index">
+                    <div class="card" (click)="selectItem(i, product.$key)" style="cursor: pointer;">
+                        <div class="card-body">
+                            <!-- <div class="product">
+                                <img [src]="product.img" class="img-fluid mb-2">
+                                <p class="text-center"><b>{{product.name}}</b></p>
+                                <div class="p-detaills pt-1">
+                                    <span>
+                                        <b>Store:</b>
+                                        <em style="color: #27ae60;">{{product.quantity}}</em>
+                                    </span>
+                                    <span>
+                                        <b>${{product.price}}</b>
+                                    </span>
+                                </div>
+                            </div> -->
+                            <app-card-product *ngFor="let product of productResponse" [products]="product"></app-card-product>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5 ,t-3 mb-3">
+        <div class="card item-list">
+            <h3 class="text-center">Your bucket</h3>
+            <div class="card-body">
+                <div class="selectitem mt-2 pt-1" *ngFor="let item of selectProductList; let i=index">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img [src]="item.img">
+                        </div>
+                        <div class="col-md-5">
+                            <h5 class="title">{{item.name}}</h5>
+                            <br>
+                            <p>
+                                <b>Price: {{item.price}}</b>  
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group qty">
+                                <label>Quantity</label>
+                                <input type="number" (click)="quantity($event, i)" value="1" min="1" [max]="item.quantity" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button (click)="delete(i, item.$key)" class="btn mt-4 btn-danger"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="outer-div">
+            <div class="pricing">
+                <p>
+                    <b>Subtotal</b>
+                    <span class="price">${{subTotal}}</span>
+                </p>
+
+                <p>
+                    <b>Vat(10%)</b>
+                    <span class="price">${{vat}}</span>
+                </p>
+
+                <p>
+                    <b>Total:</b>
+                    <span class="price">
+                        <b>${{totalPrice}}</b>
+                    </span>
+                </p>
+
+                <div class="row justify-content-center">
+                    <button (click)="order()" class="save btn btn-sm pt-2 btn-primary">
+                        <i class="far fa-save mr-2">Save</i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

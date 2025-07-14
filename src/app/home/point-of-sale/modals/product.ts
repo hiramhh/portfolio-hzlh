@@ -1,4 +1,5 @@
 export class Product {
+    $key?: string
     name!: string;
     category!: string;
     description!: string;
@@ -10,4 +11,7 @@ export class Product {
     date!: string;
     quantity!: number;
     img!: any;
+    color!: string;
+    size!: string;
+    brand!: string;
 }

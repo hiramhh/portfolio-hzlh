@@ -4,6 +4,7 @@ import { PokemonTemplateComponent } from './home/pokemon/pokemon-template/pokemo
 import { PointOfSaleComponent } from './home/point-of-sale/dashboard/point-of-sale.component';
 import { PosComponent } from './home/point-of-sale/pos.component';
 import { NotFoundError } from 'rxjs';
+import { OrderComponent } from './home/point-of-sale/product/order/order.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,10 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 component:  PointOfSaleComponent,
+            },
+            {
+                path: 'sales',
+                component: OrderComponent,
             }
             
         ]
