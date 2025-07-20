@@ -5,6 +5,7 @@ import { PointOfSaleComponent } from './home/point-of-sale/dashboard/point-of-sa
 import { PosComponent } from './home/point-of-sale/pos.component';
 import { NotFoundError } from 'rxjs';
 import { OrderComponent } from './home/point-of-sale/product/order/order.component';
+import { ProductListComponent } from './home/point-of-sale/product/product-list/product-list.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,10 @@ export const routes: Routes = [
             {
                 path: 'sales',
                 component: OrderComponent,
+            },
+            {
+                path: 'product-list',
+                component: ProductListComponent,
             }
             
         ]
