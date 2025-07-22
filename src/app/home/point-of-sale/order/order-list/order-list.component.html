@@ -1,1 +1,55 @@
-<p>order-list works!</p>
+<!-- <div class="container">
+    <div class="row juistify-content-center">
+        <div class="col-md-10 mt-5 order-list">
+            <div class="row juistify-content-center filter-order">
+                <div class="form-group col-md-7">
+                    <button (click)="filterByDay()" class="btn btn-o">Day</button>
+                    <button (click)="filterByMonth()" class="btn btn-o">Month</button>
+                    <button (click)="filterByYear()" class="btn btn-o">Year</button>
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <select (change)="sort($event)" class="form-control form-control-sm">
+                        <option>Sort by</option>
+                        <option value="totalPrice">By price</option>
+                    </select>
+                </div>
+            </div>
+
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <td>Order ID</td>
+                        <td>Order Date</td>
+                        <td>Total Products</td>
+                        <td style="text-align: left;">Product List</td>
+                        <td>Quantity</td>
+                        <td>Total price</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orderItem">
+                        <td>#{{order.orderId}}</td>
+                        <td>{{order.date}}</td>
+                        <td>{{order.products | count}}</td>
+                        <td style="text-align: left;">
+                            <li style="list-style: none;" *ngFor="let item of order.products | vallueArray; let i = index">
+                                - {{item.qty}}
+                            </li>
+                        </td>
+                        <td>
+                            $ <b>{{order.price}}</b>
+                        </td>
+                        <td>
+                            <a style="cursor: pointer;" (click)="delete(order.$key)">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> -->
+
+<span>Hola mundo</span>
