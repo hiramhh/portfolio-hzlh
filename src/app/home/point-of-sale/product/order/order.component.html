@@ -8,12 +8,11 @@
                         <div class="filter col.md-3">
                             <div class="form-group">
                                 <select (change)="category($event)" class="form-control form-control-sm">
-                                    <option value="mobile">Mobile</option>
-                                    <option value="tshirt">T-shirt</option>
-                                    <option value="poloshirt">Polo shirt</option>
-                                    <option value="shoe">Shoe</option>
-                                    <option value="bag">Bag</option>
-                                    <option value="cosmetics">cosmetics</option>
+                                    <option value="">Select Category</option>
+                                    <option value="men's clothing">men's clothing</option>
+                                    <option value="jewelery">jewelery</option>
+                                    <option value="electronics">electronics</option>
+                                    <option value="women's clothing">women's clothing</option>
                                 </select>
                             </div>
                         </div>
@@ -56,7 +55,7 @@
                 <app-card-product 
                 class="col py-5 select-item" 
                 (click)="selectItem(product.title, product.id)" 
-                *ngFor="let product of productResponse" 
+                *ngFor="let product of filteredProductList" 
                 [products]="product"
                 ></app-card-product>
             </div>
@@ -69,12 +68,12 @@
                 <div class="card-body">
                     <div class="selectitem mt-2 pt-1" *ngFor="let item of selectProductList; let i=index">
                         <div class="row">
-                            <div class="col-md-2">
-                                <img [src]="item.img">
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <img [src]="item.image" class="list-order-img">
                             </div>
-                            <div class="col-md-5">
-                                <h5 class="title">{{item.name}}</h5>
-                                <br>
+                            <div class="col-md-5 d-flex align-items-center">
+                                <!-- <h5 class="title">{{item.name}}</h5>
+                                <br> -->
                                 <p>
                                     <b>Price: {{item.price}}</b>  
                                 </p>
@@ -86,7 +85,9 @@
                                 </div>
                             </div>
                             <div class="col-md-1">
-                                <button (click)="delete(i, item.$key)" class="btn mt-4 btn-danger"></button>
+                                <button (click)="delete(i, item.$key)" class="btn mt-4 btn-danger">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
                             </div>
                         </div>
                     </div>

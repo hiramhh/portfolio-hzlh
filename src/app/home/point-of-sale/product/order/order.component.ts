@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../../modals/product';
 import { CommonModule } from '@angular/common';
 import { OrderProduct } from '../../modals/order-product';
@@ -38,14 +38,16 @@ export class OrderComponent implements OnInit{
   selectProductList: Product[] = [];
   sortingList: Product[] = [];
   productBrands: Product[] = [];
-
-  saleProducts: OrderProduct[] = [];
-
+  saleProducts: OrderProduct[] = []
   productResponse: ProductResponse[] = []; 
+
+  filteredProductList: Product []= [];
+
+  productService: ProductService = inject(ProductService);
 
 
   constructor(
-    private productService: ProductService,
+    // private productService: ProductService,
     private productdbService: ProductdbService,
     private ps: ProductService,
     private saleService: SaleService
@@ -56,12 +58,50 @@ export class OrderComponent implements OnInit{
   this.productService.getAllProducts().subscribe({
     next: (data) => {
     this.productResponse = Object.values(data)
-    this.productList = this.productResponse;
+    this.priceRounding();
+    this.filteredProductList = this.productList;
+    this.getAllProduct();
     },
 
     error: (err) => console.error('Error fetching Products', err)
   });
+
   }
+
+  getAllProduct(){
+    this.tempList = [];
+
+    this.productResponse.forEach((element: any) => {
+      const list = element;
+      list['$key'] = element.id;
+      this.tempList.push(list as Product);
+    });
+
+   }
+
+   priceRounding(){
+    this.productList = this.productResponse.map((item: any) => {
+        let spare = item.price % 5;
+        let newPrice = item.price;
+
+      if (spare === 0) {
+        newPrice = item.price;
+      } else {
+        if (spare <= 2) {
+          newPrice = item.price - spare;
+        }
+        else {
+          let sum = 5 - spare;
+          newPrice = item.price + sum;
+        }
+      }
+
+      return {...item, price: newPrice};
+    });
+
+    console.log(this.productList);
+    
+   }
 
   selectItem(title: string, id: number){
 
@@ -75,7 +115,7 @@ export class OrderComponent implements OnInit{
       // this.keyList.push(id);
 
       this.getTotal(this.selectProductList);
-      // this.setTempPrice();
+      this.setTempPrice();
       // return this.selectProductList;
     console.log(this.selectProductList);
     
@@ -120,7 +160,7 @@ export class OrderComponent implements OnInit{
       }
     } else {
       item = {
-        id: (this.tempPrice.length) -1 ,
+        id: (this.tempPrice.length) + 1 ,
         qty: 1
       }
       this.tempPrice.push(item);
@@ -141,21 +181,19 @@ export class OrderComponent implements OnInit{
 
 
   // filter....
-  category(e: any){
-    let temp;
-
+  category(e: Event){
     let brands: any[] = [];
     let color: any[] = [];
     let size: any[] = [];
 
-    let filter: string = e.target.value.toLowerCase();
+    let filter: string = (e.target as HTMLInputElement).value.toLowerCase();
     
     this.showBrands = true;
 
     if (filter === 'mobile' || filter==='shoe' || filter==='bag') {
       this.showColor = true;
       this.showSize = false;
-    } else if (filter === 'tshirt' || filter === 'poloshirt') {
+    } else if (filter === 'womenClothing' || filter === 'menClothing') {
       this.showColor = false;
       this.showSize = true;
     } else {
@@ -163,16 +201,17 @@ export class OrderComponent implements OnInit{
       this.showSize = false;
     }
 
-    temp = this.tempList.filter( item => {
-      if (item.category.toLowerCase() === filter) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
 
-    this.productList = temp;
-    this.sortingList = temp;
+    if (filter === '') {
+      this.filteredProductList = this.productList;
+    } else{
+      this.filteredProductList = this.productList.filter(item =>
+        item.category.toLowerCase() === filter
+      )
+    }
+
+
+
 
     this.sortingList.filter( item =>  {
       if (color.indexOf(item.color) == -1) {
@@ -220,7 +259,7 @@ export class OrderComponent implements OnInit{
     this.sale.date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 
     // generate Ramdom Id
-    let id: number = Number(Math.random().toString(36).slice(2, 4) + String(Math.round(Math.random() * 1000)));
+    let id: any = Number(Math.random().toString(36).slice(2, 4) + Number(Math.round(Math.random() * 1000)));
     this.sale.orderId = id;
     this.sale.totalPrice = this.totalPrice;
 
@@ -245,7 +284,8 @@ export class OrderComponent implements OnInit{
     if (this.sale.products.length === 0) {
       alert("Select your product 1st")
     } else {
-      this.saleService.addOrder(this.sale);
+      localStorage.setItem('sale', JSON.stringify(this.sale))
+      // this.saleService.addOrder(this.sale);
       this.clearBucket();
     }
   }

@@ -3,3 +3,8 @@
     transform: scale(1.1);
     cursor: pointer;
 }
+
+.list-order-img{
+    width: 70%;
+    height: auto;
+}

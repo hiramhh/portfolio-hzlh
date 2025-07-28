@@ -92,12 +92,10 @@
                         <h4>By Category</h4>
                         <select (change)="category($event)" class="form-control form.control-sm">
                             <option value="">Select Category</option>
-                            <option value="mobile">Mobile</option>
-                            <option value="tshirt">T shirt</option>
-                            <option value="poloshirt">Polo Shirt</option>
-                            <option value="shoe">Shoe</option>
-                            <option value="bag">Bag</option>
-                            <option value="cosmetics">Cosmetic</option>
+                            <option value="menClothing">men's clothing</option>
+                            <option value="jewelery">jewelery</option>
+                            <option value="electronics">electronics</option>
+                            <option value="womenClorthing">women's clothing</option>
                         </select>
                     </div>
                     <div class="priceRange">
@@ -156,11 +154,11 @@
                     <tbody>
                         <tr *ngFor="let product of productList; let i = index">
                             <td>{{i + 1}}</td>
-                            <td><img [src]="product.img" ></td>
-                            <td>{{product.name}}</td>
+                            <td><img [src]="product.image" class="list-order-img" ></td>
+                            <td>{{product.title}}</td>
                             <td>{{product.category}}</td>
                             <td>{{product.brand}}</td>
-                            <td>{{product.quantity}}</td>
+                            <td>{{product.rating.count}}</td>
                             <td>${{product.price}}</td>
                             <td style="cursor:pointer"> 
                                 <i (click)="openModal(template, product)" class="fas fa-pencil-alt"></i>

@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ProductResponse } from '../../modals/product-response';
-import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { Product } from '../../modals/product';
 
 @Component({
   selector: 'app-card-product',
@@ -10,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './card-product.component.css'
 })
 export class CardProductComponent {
-@Input() products!: ProductResponse;
+@Input() products!: Product;
 
 
 }

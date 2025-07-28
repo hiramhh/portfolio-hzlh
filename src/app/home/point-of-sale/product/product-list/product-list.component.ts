@@ -64,14 +64,20 @@ export class ProductListComponent {
   ngOnInit(){
     const data = this.productDBService.getAllProducts().subscribe({
       next: (data) => {
-        console.log("Hola mundo");
-        
+        this.productList = [];
+       
+        data.forEach((element: any) => {
+          const list = element;
+          list["$key"] = element.id;
+          this.productList.push(list as Product);
+        });
+
       },
 
       error: (err) => console.error('Error al getAllProduct ProductListComponent', err)
     });
 
-    this.getAllProduct();
+    // this.getAllProduct();
   }
 
   addProduct(){
@@ -79,7 +85,7 @@ export class ProductListComponent {
   }
 
   getAllProduct(){
-    const data = this.productDBService.getAllProducts().subscribe({
+    this.productDBService.getAllProducts().subscribe({
       next: (data) => {
         console.log("Hola mundo");
         
