@@ -23,7 +23,13 @@ export class PointOfSaleComponent implements OnInit {
 
   tempPList: Product[] = [];
   ProductList: Product[] = [];
-  saleList : Sale[] = [];
+  saleList : Sale = {
+        '$key': '',
+        'orderId': 0,
+        'products': [],
+        'date': '',
+        'totalPrice': 0
+  };
   tempList: Sale[] = [];
 
   canvas: any;
@@ -92,54 +98,66 @@ export class PointOfSaleComponent implements OnInit {
 
   getOrderData(){
     let sale = 0;
-    this.saleDB.getOrder().subscribe({
-      next: (data) => {
-        this.tempList = [];
-        data.forEach((element: Sale)=> {
-          this.tempList.push(element as Sale);
-        });
 
-        let date = '/'+String(new Date().getMonth()+1)+'/';
-        let year = '/'+String(new Date ().getFullYear()+1);
-        this.saleList = [];
 
-        let temp = this.tempList.filter( item => {
-          if ((item.date.indexOf(date)>-1) && (item.date.indexOf(year)>-1)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
+    // this.saleDB.getOrder().subscribe({
+    //   next: (data) => {
+    //     this.tempList = [];
+    //     data.forEach((element: Sale)=> {
+    //       this.tempList.push(element as Sale);
+    //     });
 
-        this.saleList = temp;
-        this.countSoldProduct(this.saleList);
-        this.saleList.forEach(element =>{
-          sale = (sale + element.totalPrice);
-        });
+    //     let date = '/'+String(new Date().getMonth()+1)+'/';
+    //     let year = '/'+String(new Date ().getFullYear()+1);
+    //     this.saleList = [];
 
-        localStorage.setItem('sale', String(sale));
+    //     let temp = this.tempList.filter( item => {
+    //       if ((item.date.indexOf(date)>-1) && (item.date.indexOf(year)>-1)) {
+    //         return 1;
+    //       } else {
+    //         return 0;
+    //       }
+    //     });
+
+    //     this.saleList = temp;
+    //     this.countSoldProduct(this.saleList);
+    //     this.saleList.forEach(element =>{
+    //       sale = (sale + element.totalPrice);
+    //     });
+
+    //     localStorage.setItem('sale', String(sale));
 
         
         
-      },
-      error: (err) => console.log('Error gettings proeducts', err)
-    });
+    //   },
+    //   error: (err) => console.log('Error gettings proeducts', err)
+    // });
+
+    this.saleList = JSON.parse(localStorage.getItem('sale') ??  '[]');
+    console.log('Hola');
+    
+    console.log(typeof(this.saleList));
+    
+    this.countSoldProduct(this.saleList);
+
+
+
   }
 
 
-  countSoldProduct(list: any){
+  countSoldProduct(list: Sale){
     
     //console.log(list);
     ///  COUNT TOTAL SOLD PRODUCT //
     
-    let count = 0;
+    let count = list.products.length;
 
-    for (let i=0; i<list.length;i++){
-      for (let j = 0; j < Object.keys(list[1].products).length; j++){
-        let item = Object.values(list[i].products[j]);
-       count = (count + Number(item[1]));
-      }
-    }
+    // for (let i=0; i<list.length;i++){
+    //   for (let j = 0; j < Object.keys(list[1].products).length; j++){
+    //     let item = Object.values(list[i].products[j]);
+    //    count = (count + Number(item[1]));
+    //   }
+    // }
     this.totalSoldProducts = count;
   }
 
@@ -148,14 +166,14 @@ export class PointOfSaleComponent implements OnInit {
     let filtereDate =new Date().getDate()-7+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     let tdate = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     this.getOrderData();
-    let list = this.saleList.filter( item => {
-      if (item.date > filtereDate && (item.date <= tdate)) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-    });
+    // let list = this.saleList.filter( item => {
+    //   if (item.date > filtereDate && (item.date <= tdate)) {
+    //     return 1;
+    //   }
+    //   else {
+    //     return 0;
+    //   }
+    // });
   }
 
   mensual(){

@@ -259,7 +259,7 @@ export class OrderComponent implements OnInit{
     this.sale.date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
 
     // generate Ramdom Id
-    let id: any = Number(Math.random().toString(36).slice(2, 4) + Number(Math.round(Math.random() * 1000)));
+    let id: any = String(Math.random().toString(36).slice(2, 4) + String(Math.round(Math.random() * 1000)));
     this.sale.orderId = id;
     this.sale.totalPrice = this.totalPrice;
 
