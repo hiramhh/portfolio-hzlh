@@ -5,7 +5,7 @@ import { SaleService } from '../services/sale.service';
 import { Sale } from '../modals/sale';
 import { CommonModule } from '@angular/common';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {Chart} from 'chart.js';
+import {Chart} from 'chart.js/auto';
 
 @Component({
   selector: 'app-point-of-sale',
@@ -18,6 +18,7 @@ export class PointOfSaleComponent implements OnInit {
 
   totalproduct: number = 0;
   totalSoldProducts: number = 0;
+  totalAmountSold: number = 0;
   p: number = 0;
   q: number = 0;
 
@@ -39,6 +40,7 @@ export class PointOfSaleComponent implements OnInit {
   ngOnInit(): void {
     this.getProductList();
     this.getOrderData();
+    this.revenueChart();
 
     this.salesAnalysis();
 
@@ -60,6 +62,9 @@ export class PointOfSaleComponent implements OnInit {
         let year = '/'+String(new Date ().getFullYear()+1);
         this.ProductList = [];
 
+
+        // At the moment 02/08/2025 we don't have the backend servide to ggety buy data
+        // for that reason the next code is broke but dons affect the system. We avoid "buy" for the moment
         let temp = this.tempPList.filter( item => {
           if ((item.date.indexOf(date)>-1) && (item.date.indexOf(year)>-1)) {
             return 1;
@@ -92,55 +97,85 @@ export class PointOfSaleComponent implements OnInit {
 
   getOrderData(){
     let sale = 0;
-    this.saleDB.getOrder().subscribe({
-      next: (data) => {
-        this.tempList = [];
-        data.forEach((element: Sale)=> {
-          this.tempList.push(element as Sale);
-        });
+    let dataFromLocalS = localStorage.getItem('sale')
+    const data = dataFromLocalS ? JSON.parse(dataFromLocalS): [];
 
-        let date = '/'+String(new Date().getMonth()+1)+'/';
-        let year = '/'+String(new Date ().getFullYear()+1);
-        this.saleList = [];
+    // data.forEach((element: Sale) =>{
+      this.tempList.push(data as Sale);
+    // })
 
-        let temp = this.tempList.filter( item => {
-          if ((item.date.indexOf(date)>-1) && (item.date.indexOf(year)>-1)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
 
-        this.saleList = temp;
-        this.countSoldProduct(this.saleList);
-        this.saleList.forEach(element =>{
-          sale = (sale + element.totalPrice);
-        });
+    this.saleList = this.tempList;
+    this.countSoldProduct(this.saleList);
+    this.saleList.forEach(element =>{
+      sale = (sale + element.totalPrice);
+    });    
 
-        localStorage.setItem('sale', String(sale));
+    localStorage.setItem('saleAmount', String(sale));
+    
 
-        
-        
-      },
-      error: (err) => console.log('Error gettings proeducts', err)
-    });
+    // data.forEach
+    // this.tempList
+
+
+    // I comment this for the moment, inthe furture we will make a backed service to reponse the request.
+    // for the moment this proejct use localstorage to save dta.
+
+    // this.saleDB.getOrder().subscribe({
+    //   next: (data) => {
+    //     this.tempList = [];
+    //     data.forEach((element: Sale)=> {
+    //       this.tempList.push(element as Sale);
+    //     });
+
+    //     let date = '/'+String(new Date().getMonth()+1)+'/';
+    //     let year = '/'+String(new Date ().getFullYear()+1);
+    //     this.saleList = [];
+
+    //     let temp = this.tempList.filter( item => {
+    //       if ((item.date.indexOf(date)>-1) && (item.date.indexOf(year)>-1)) {
+    //         return 1;
+    //       } else {
+    //         return 0;
+    //       }
+    //     });
+
+    //     this.saleList = temp;
+    //     this.countSoldProduct(this.saleList);
+    //     this.saleList.forEach(element =>{
+    //       sale = (sale + element.totalPrice);
+    //     });
+
+    //     localStorage.setItem('sale', String(sale));
+    //   },
+    //   error: (err) => console.log('Error gettings proeducts', err)
+    // });
+
+
   }
 
 
-  countSoldProduct(list: any){
+  countSoldProduct(list: Sale[]){
     
     //console.log(list);
     ///  COUNT TOTAL SOLD PRODUCT //
     
     let count = 0;
+    let sold = 0;
 
-    for (let i=0; i<list.length;i++){
-      for (let j = 0; j < Object.keys(list[1].products).length; j++){
-        let item = Object.values(list[i].products[j]);
-       count = (count + Number(item[1]));
-      }
-    }
+    list.forEach((item: Sale) =>{
+      count = item.products.length;
+      this.totalAmountSold = item.totalPrice;
+    });
+    //Maybe we use this code when the back service was created
+    // for (let i=0; i<list.length;i++){
+    //   for (let j = 0; j < Object.keys(list[1].products).length; j++){
+    //     let item = Object.values(list[i].products[j]);
+    //    count = (count + Number(item[1]));
+    //   }
+    // }
     this.totalSoldProducts = count;
+    
   }
 
   semanal(){
@@ -199,7 +234,11 @@ export class PointOfSaleComponent implements OnInit {
 
 
   revenueChart(){
-    let value = [localStorage.getItem('buy'), localStorage.getItem('sale')];
+    // let value = [localStorage.getItem('buy'), localStorage.getItem('sale')];
+
+    let storedValue: any = localStorage.getItem('saleAmount');
+    let nullManager = storedValue ? storedValue : '0'; 
+    let value = [parseInt(nullManager)];
 
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
@@ -207,7 +246,7 @@ export class PointOfSaleComponent implements OnInit {
     let data = new Chart( this.ctx, {
       type: 'pie',
       data: {
-        labels: ['Buy', 'Sale'],
+        labels: ['Sale'],
         datasets:[{
           label: 'Revenue',
           data: value,
@@ -219,14 +258,6 @@ export class PointOfSaleComponent implements OnInit {
       },
       options: {
         responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 1
-            }
-          }
-        }
       }
     })
   }

@@ -38,8 +38,8 @@
             <div class="card product-box text-bg-dark border-info">
                 <div class="card-body position ">
                     <div class="text">
-                        <h4> A pagar
-                            <br>$ 200
+                        <h4> Ganancias
+                            <br>$ {{totalAmountSold}}
                         </h4>
                     </div>
                     <div>
@@ -82,9 +82,9 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="card">
+            <div class="card border-info text-bg-dark" style="width: 18rem;">
                 <div class="card-body">
-                    <h5> Revenue Statistics</h5>
+                    <h5> Revenue Statistics (Monthly)</h5>
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                             <tr *ngFor="let item of saleList | paginate : {itemsPerPage: 3, currentPage: q, id:'q'}">
                                 <td>#{{item.orderId}}</td>
                                 <td>{{item.date}}</td>
-                                <td>{{item.products}}</td>
+                                <td>{{item.products.length}}</td>
                                 <td><b>{{item.totalPrice}}</b></td>
                             </tr>
                         </tbody>
