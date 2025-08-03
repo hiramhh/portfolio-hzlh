@@ -53,6 +53,8 @@ export class ProductListComponent {
   colorCheckList: string[] = [];
   sizeCheckList: string[] = [];
 
+  filteredProductList: Product[] = [];
+
   //modalRef: BsModalRef;
 
   constructor(
@@ -71,6 +73,8 @@ export class ProductListComponent {
           list["$key"] = element.id;
           this.productList.push(list as Product);
         });
+
+        this.filteredProductList = this.productList;
 
       },
 
@@ -117,7 +121,13 @@ export class ProductListComponent {
       this.showSize = false;
     }
 
-    this.productList = [];
+    // this.productList = [];
+
+    if(filter === ''){
+      this.filteredProductList = this.productList;
+    } else {
+      this.filteredProductList = this.productList.filter(item => item.category.toLowerCase() === filter)
+    }
 
 
     let temp = this.tempList.filter( item => {
@@ -130,25 +140,25 @@ export class ProductListComponent {
     })
 
 
-    temp.forEach(item => {
-      if (brands.indexOf(item.brand) === -1) {
-        brands.push(item.brand)
-      }
+    // temp.forEach(item => {
+    //   if (brands.indexOf(item.brand) === -1) {
+    //     brands.push(item.brand)
+    //   }
 
-      if (color.indexOf(item.color) === -1) {
-        brands.push(item.color)
-      }
+    //   if (color.indexOf(item.color) === -1) {
+    //     brands.push(item.color)
+    //   }
 
-      if (size.indexOf(item.size) === -1) {
-        brands.push(item.size)
-      }
+    //   if (size.indexOf(item.size) === -1) {
+    //     brands.push(item.size)
+    //   }
 
-      if (brands.indexOf(item.brand) === -1) {
-        brands.push(item.brand);
-      }
-    });
+    //   if (brands.indexOf(item.brand) === -1) {
+    //     brands.push(item.brand);
+    //   }
+    // });
 
-    this.productList = temp;
+    // this.productList = temp;
     this.catlist = temp;
     this.checkList = [];
     this.productBrands = brands;

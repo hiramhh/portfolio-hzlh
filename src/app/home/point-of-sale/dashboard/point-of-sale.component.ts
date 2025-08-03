@@ -24,7 +24,14 @@ export class PointOfSaleComponent implements OnInit {
 
   tempPList: Product[] = [];
   ProductList: Product[] = [];
-  saleList : Sale[] = [];
+  // saleList : Sale = {
+  //       '$key': '',
+  //       'orderId': '0',
+  //       'products': [],
+  //       'date': '',
+  //       'totalPrice': 0
+  // };
+  saleList: Sale[] = [];
   tempList: Sale[] = [];
 
   canvas: any;
@@ -183,14 +190,14 @@ export class PointOfSaleComponent implements OnInit {
     let filtereDate =new Date().getDate()-7+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     let tdate = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
     this.getOrderData();
-    let list = this.saleList.filter( item => {
-      if (item.date > filtereDate && (item.date <= tdate)) {
-        return 1;
-      }
-      else {
-        return 0;
-      }
-    });
+    // let list = this.saleList.filter( item => {
+    //   if (item.date > filtereDate && (item.date <= tdate)) {
+    //     return 1;
+    //   }
+    //   else {
+    //     return 0;
+    //   }
+    // });
   }
 
   mensual(){

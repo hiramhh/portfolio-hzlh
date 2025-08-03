@@ -92,10 +92,10 @@
                         <h4>By Category</h4>
                         <select (change)="category($event)" class="form-control form.control-sm">
                             <option value="">Select Category</option>
-                            <option value="menClothing">men's clothing</option>
+                            <option value="men's clothing">men's clothing</option>
                             <option value="jewelery">jewelery</option>
                             <option value="electronics">electronics</option>
-                            <option value="womenClorthing">women's clothing</option>
+                            <option value="women's clothing">women's clothing</option>
                         </select>
                     </div>
                     <div class="priceRange">
@@ -152,7 +152,7 @@
                     </thead>
 
                     <tbody>
-                        <tr *ngFor="let product of productList; let i = index">
+                        <tr *ngFor="let product of filteredProductList; let i = index">
                             <td>{{i + 1}}</td>
                             <td><img [src]="product.image" class="list-order-img" ></td>
                             <td>{{product.title}}</td>
