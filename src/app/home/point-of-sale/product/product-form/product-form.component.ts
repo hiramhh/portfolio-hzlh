@@ -1,13 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule ,NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-form',
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css'
 })
 export class ProductFormComponent {
+  size: boolean = false;
+  colorShow: boolean = false;
+  uploadPercent: any;
+  category: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<ProductFormComponent>
@@ -24,6 +30,15 @@ export class ProductFormComponent {
 
   closeDialog(){
     this.dialogRef.close();
+  }
+
+  submitData(form: NgForm){
+    console.log("Hola mundo");
+  }
+
+  selectCategory(){
+    console.log('Hola desde selectCategory');
+    
   }
 
 }

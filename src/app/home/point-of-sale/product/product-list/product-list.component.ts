@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from '../product-form/product-form.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 
 
@@ -58,7 +59,6 @@ export class ProductListComponent {
   //modalRef: BsModalRef;
 
   constructor(
-    private router: Router,
     private productDBService: ProductdbService,
     private matDialog: MatDialog
   ){}
@@ -85,7 +85,7 @@ export class ProductListComponent {
   }
 
   addProduct(){
-    this.router.navigate([]);
+    this.matDialog.open(ProductFormComponent);
   }
 
   getAllProduct(){
@@ -288,10 +288,9 @@ export class ProductListComponent {
     this.productDBService.updateProductQty(pform.value, key, 4);
   }
 
-  openModal(template: any, product: any){
-    console.log('Hola mundo');
-    this.matDialog.open(ProductFormComponent);
-    this.editProductItem = product;
+  openModal(){
+    this.matDialog.open(EditProductComponent);
+    // this.editProductItem = product;
   }
 
 
