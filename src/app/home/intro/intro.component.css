@@ -1,0 +1,13 @@
+.github-button{
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    cursor: pointer;
+    color: white;
+}
+
+
+
+.github-button:hover{
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    cursor: pointer;
+    color: rgb(87, 75, 104);
+}
