@@ -1,0 +1,23 @@
+<section>
+    <h2>Get in touch</h2>
+</section>
+
+
+<form [formGroup]="mailForm" (ngSubmit)="sendMail()">
+    <div>
+        <label for="Name">Name</label>
+        <input type="text" id="name" formControlName="name">
+    </div>
+
+    <div>
+        <label for="mail">Mail</label>
+        <input type="email" id="mail" formControlName="mail">
+    </div>
+
+    <div>
+        <label for="message"></label>
+        <input type="text" id="message" formControlName="message">
+    </div>
+
+    <button type="submit">Send</button>
+</form>
